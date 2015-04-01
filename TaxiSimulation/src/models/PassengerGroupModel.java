@@ -1,22 +1,15 @@
 package models;
 
+import java.util.List;
+
 public class PassengerGroupModel {
-	private int numberOfPassengers;
-	private String destination;
+	private List<PassengerGroupModel> PassengerGroups;
 	
-	public int getNumberOfPassengers() {
-		return numberOfPassengers;
+	public List<PassengerGroupModel> getPassengerGroups() {
+		return PassengerGroups;
 	}
 	
-	public void setNumberOfPassengers(int numberOfPassengers) {
-		this.numberOfPassengers = numberOfPassengers;
-	}
-	
-	public String getDestination() {
-		return destination;
-	}
-	
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setPassengerGroups(List<PassengerGroupModel> PassengerGroups) {
+		this.PassengerGroups = PassengerGroups;
 	}
 }

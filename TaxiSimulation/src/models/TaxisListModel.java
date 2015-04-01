@@ -1,9 +1,15 @@
 package models;
 
-import java.awt.List;
+import java.util.List;
 
-public class TaxisListModel extends List {
-	public TaxisListModel() {
-		
+public class TaxisListModel {
+	private List<TaxiModel> Taxis;
+	
+	public List<TaxiModel> getTaxis() {
+		return Taxis;
+	}
+	
+	public void setTaxis(List<TaxiModel> Taxis) {
+		this.Taxis = Taxis;
 	}
 }
