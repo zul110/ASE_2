@@ -10,4 +10,11 @@ public class TaxiModel {
 	public void setRegistrationNumber(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
 	}
+	
+	public String displayTaxiInfo() {
+		String s = "";
+		s += this.getRegistrationNumber() + "\n";
+		
+		return s;
+	}
 }

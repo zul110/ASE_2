@@ -3,13 +3,23 @@ package models;
 import java.util.List;
 
 public class TaxisListModel {
-	private List<TaxiModel> Taxis;
+	private List<TaxiModel> taxis;
 	
 	public List<TaxiModel> getTaxis() {
-		return Taxis;
+		return taxis;
 	}
 	
-	public void setTaxis(List<TaxiModel> Taxis) {
-		this.Taxis = Taxis;
+	public void setTaxis(List<TaxiModel> taxis) {
+		this.taxis = taxis;
+	}
+	
+	public String displayTaxisListInfo() {
+		String s = "";
+		
+		for(TaxiModel taxi : taxis) {
+			s += taxi.displayTaxiInfo();
+		}
+		
+		return s;
 	}
 }

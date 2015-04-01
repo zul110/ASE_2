@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import models.*;
 
 public class SimulationController {
-	private ArrayList<PassengerGroupModel> passengerGroups;
+	private ArrayList<PassengerGroupListModel> passengerGroups;
 	private ArrayList<TaxiModel> taxis;
 	
 	/**
@@ -43,7 +43,7 @@ public class SimulationController {
 	 * Gets the next available passenger group (index 0) in the collection
 	 * @return Returns true if a group is available, false if the collection is empty
 	 */
-	public PassengerGroupModel getNextAvailablePassengerGroup() {
+	public PassengerGroupListModel getNextAvailablePassengerGroup() {
 		return null;
 	}
 	
@@ -61,7 +61,7 @@ public class SimulationController {
 	 * @param taxi
 	 * @return Returns true if successfully assigns a group to a taxi (depending on a given condition), false if fails
 	 */
-	public boolean assignPassengerGroupToTaxi(PassengerGroupModel passengerGroup, TaxiModel taxi) { 
+	public boolean assignPassengerGroupToTaxi(PassengerGroupListModel passengerGroup, TaxiModel taxi) { 
 		return true;
 	}
 	
@@ -71,7 +71,7 @@ public class SimulationController {
 	 * @param passengerGroup
 	 * @return Returns true if successfully removes the group, false if fails
 	 */
-	public boolean removePassengerGroup(PassengerGroupModel passengerGroup) {
+	public boolean removePassengerGroup(PassengerGroupListModel passengerGroup) {
 		return true;
 	}
 	
