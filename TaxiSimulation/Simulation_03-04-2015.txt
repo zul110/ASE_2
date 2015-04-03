@@ -1,0 +1,84 @@
+Passenger Groups (7):
+1 passenger(s), going to Zuerich,Kreis 11
+5 passenger(s), going to Zuerich,Wollishofen
+3 passenger(s), going to Zuerich,Wallisellen
+4 passenger(s), going to Zuerich,Mattenbach
+2 passenger(s), going to Geneva,LeJetdEau
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (5):
+SWISS-GE-237890
+SWISS-GE-245670
+SWISS-GE-274788
+SWISS-GE-212345
+SWISS-GE-252385
+
+
+
+Passenger Groups (6):
+5 passenger(s), going to Zuerich,Wollishofen
+3 passenger(s), going to Zuerich,Wallisellen
+4 passenger(s), going to Zuerich,Mattenbach
+2 passenger(s), going to Geneva,LeJetdEau
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (4):
+SWISS-GE-245670
+SWISS-GE-274788
+SWISS-GE-212345
+SWISS-GE-252385
+
+
+
+Passenger Groups (5):
+3 passenger(s), going to Zuerich,Wallisellen
+4 passenger(s), going to Zuerich,Mattenbach
+2 passenger(s), going to Geneva,LeJetdEau
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (3):
+SWISS-GE-274788
+SWISS-GE-212345
+SWISS-GE-252385
+
+
+
+Passenger Groups (4):
+4 passenger(s), going to Zuerich,Mattenbach
+2 passenger(s), going to Geneva,LeJetdEau
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (2):
+SWISS-GE-212345
+SWISS-GE-252385
+
+
+
+Passenger Groups (3):
+2 passenger(s), going to Geneva,LeJetdEau
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (1):
+SWISS-GE-252385
+
+
+
+Passenger Groups (2):
+3 passenger(s), going to Genevaaaa,LeJetdEau
+5 passenger(s), going to Genevabbb,LeJetdEau
+
+
+Taxis (0):
+
+
+

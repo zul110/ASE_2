@@ -25,6 +25,15 @@ public class PassengerGroupModel {
 		this.destination = destination;
 	}
 	
+	@Override
+	public String toString() {
+		String s = "";
+		s += getNumberOfPassengers() + " passenger(s), ";
+		s += "going to " + getDestination();
+		
+		return s;
+	}
+	
 	public String displayPassengerGroupInfo() {
 		String s = "";
 		s += this.getDestination() + "\n";

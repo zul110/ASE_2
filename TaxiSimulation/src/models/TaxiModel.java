@@ -15,6 +15,14 @@ public class TaxiModel {
 		this.registrationNumber = registrationNumber;
 	}
 	
+	@Override
+	public String toString() {
+		String s = "";
+		s += registrationNumber;
+		
+		return s;
+	}
+	
 	public String displayTaxiInfo() {
 		String s = "";
 		s += this.getRegistrationNumber() + "\n";
