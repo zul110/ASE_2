@@ -1,1 +1,10 @@
 /models/
+/controllers/
+/fileOps/
+/fileOperations/
+/helpers/
+/customExceptions/
+/data/
+/views/
+/observable/
+/observer/

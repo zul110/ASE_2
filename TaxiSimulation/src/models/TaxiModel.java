@@ -3,6 +3,10 @@ package models;
 public class TaxiModel {
 	private String registrationNumber;
 	
+	public TaxiModel(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+	
 	public String getRegistrationNumber() {
 		return registrationNumber;
 	}

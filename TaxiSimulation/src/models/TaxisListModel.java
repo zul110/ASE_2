@@ -13,6 +13,10 @@ public class TaxisListModel {
 		this.taxis = taxis;
 	}
 	
+	public void addTaxi(TaxiModel taxi) {
+		this.taxis.add(taxi);
+	}
+	
 	public String displayTaxisListInfo() {
 		String s = "";
 		

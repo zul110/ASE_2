@@ -2,17 +2,24 @@ package controllers;
 
 import java.util.ArrayList;
 
+import views.Main;
 import models.*;
 
 public class SimulationController {
+	private MasterModel model;
+	private Main view;
+	
 	private ArrayList<PassengerGroupListModel> passengerGroups;
 	private ArrayList<TaxiModel> taxis;
 	
 	/**
 	 * Constructor of the controller
 	 */
-	public SimulationController() {
+	public SimulationController(MasterModel model, Main view) {
+		this.model = model;
+		this.view = view;
 		
+		initSimulation();
 	}
 	
 	/**

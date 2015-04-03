@@ -4,6 +4,11 @@ public class PassengerGroupModel {
 	private int numberOfPassengers;
 	private String destination;
 	
+	public PassengerGroupModel(int numberOfPassengers, String destination) {
+		this.numberOfPassengers = numberOfPassengers;
+		this.destination = destination;
+	}
+	
 	public int getNumberOfPassengers() {
 		return numberOfPassengers;
 	}
