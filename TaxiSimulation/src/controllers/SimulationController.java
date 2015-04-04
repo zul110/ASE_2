@@ -1,16 +1,15 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 
+import observerInterfaces.Observer;
+import observerInterfaces.Subject;
 import fileOperations.LogFileOps;
 import fileOperations.SimulationFileOps;
-import views.Main;
 import views.MainView;
 import models.*;
 
-public class SimulationController {
+public class SimulationController extends Subject implements Observer {
 	private MasterModel model;
 	private MainView view;
 	
@@ -23,7 +22,8 @@ public class SimulationController {
 		this.model = model;
 		this.view = view;
 		
-		initSimulation();
+		this.registerObserver(view);
+		model.registerObserver(this);
 	}
 	
 	/**
@@ -40,7 +40,9 @@ public class SimulationController {
 		ListIterator<PassengerGroupModel> iterator = passengerGroups.getPassengerGroups().listIterator();
 		
 		while(iterator.hasNext()) {
-			recordSimulation();
+//			recordSimulation();
+			model.notifyObservers();
+			this.notifyObservers();
 			if(!assignPassengerGroupToTaxi()) {
 				break;
 			}
@@ -119,5 +121,18 @@ public class SimulationController {
 	 */
 	public void removeTaxi(TaxiModel taxi) {
 		model.getTaxis().removeTaxi(taxi);
+	}
+
+	@Override
+	public void update() {
+		String simText = "";
+		
+		simText += "Passenger Groups " + "(" + model.getPassengerGroups().availablePassengerGroupCount() + ")" + ":\n";
+		simText += model.getPassengerGroups().toString() + "\n\n";
+		
+		simText += "Taxis " + "(" + model.getTaxis().availableTaxiCount() + ")" + ":\n";
+		simText += model.getTaxis().toString() + "\n\n";
+		
+		view.setSimulationText(simText);
 	}
 }

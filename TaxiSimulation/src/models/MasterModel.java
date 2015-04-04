@@ -1,9 +1,10 @@
 package models;
 
+import observerInterfaces.Subject;
 import data.PassengerGroupData;
 import data.TaxiData;
 
-public class MasterModel {
+public class MasterModel extends Subject {
 	private TaxisListModel taxis;
 	private PassengerGroupListModel passengerGroupList;
 	

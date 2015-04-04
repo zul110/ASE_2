@@ -14,6 +14,7 @@ public class Main {
 		MainView view = new MainView();
 		
 		SimulationController sim = new SimulationController(model, view);
+		sim.initSimulation();
 		
 //		TaxisListModel taxis = new TaxisListModel();
 //		taxis.setTaxis(TaxiData.getInstance().getTaxiData());
