@@ -87,7 +87,7 @@ public class FileOpsBase {
 		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
 		    writer.write(textToWrite);
 		   
-		    Utils.println("Added data to file \"" + fileName + "\" successfully.");
+		    Utils.println("Added data to file \"" + fileName + "\" successfully.\n");
 		} catch (IOException ex) {
 			throw new IOException();
 		} finally {

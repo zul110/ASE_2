@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.Utils;
+
 import java.util.ListIterator;
 
 import observerInterfaces.Observer;
@@ -9,12 +11,16 @@ import fileOperations.SimulationFileOps;
 import views.MainView;
 import models.*;
 
-public class SimulationController extends Subject implements Observer {
+public class SimulationController extends Subject implements Observer, Runnable {
 	private MasterModel model;
 	private MainView view;
 	
 	private PassengerGroupListModel passengerGroups;
-	private TaxisListModel taxis;	
+	private TaxisListModel taxis;
+	
+	private Thread t1;
+	private Thread t2;
+	
 	/**
 	 * Constructor of the controller
 	 */
@@ -30,23 +36,61 @@ public class SimulationController extends Subject implements Observer {
 	 * Initiates the simulation
 	 */
 	public void initSimulation() {
-		getTaxis();
-		getPassengerGroups();
+		model.notifyObservers();
 		
-		start();
+		setSimulationText(); // set the initial simulation text (the data in the lists as they are without modification)
+		
+		initThreads();
+	}
+	
+	private void initThreads() {
+		t1 = new Thread(this);
+		t1.setName("t1");
+		t2 = new Thread(this);
+		t2.setName("t2");
+		t1.start();
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		t2.start();
 	}
 	
 	private void start() {
 		ListIterator<PassengerGroupModel> iterator = passengerGroups.getPassengerGroups().listIterator();
 		
 		while(iterator.hasNext()) {
-//			recordSimulation();
-			model.notifyObservers();
-			this.notifyObservers();
+			//recordSimulation();
+			this.notifyObservers();  // update the view [the view is the observer of this controller]
 			if(!assignPassengerGroupToTaxi()) {
+				setSimulationText();
 				break;
 			}
+			setSimulationText();
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+	}
+
+	private void setSimulationText() {
+		String simText = "";
+		
+		simText += "Thread:" + Thread.currentThread().getName() + "\n";
+		
+		simText += "Passenger Groups " + "(" + passengerGroups.availablePassengerGroupCount() + ")" + ":\n";
+		simText += passengerGroups.toString() + "\n\n";
+		
+		simText += "Taxis " + "(" + taxis.availableTaxiCount() + ")" + ":\n";
+		simText += taxis.toString() + "\n";
+		
+		view.setSimulationText(simText);
 	}
 
 	/**
@@ -78,10 +122,12 @@ public class SimulationController extends Subject implements Observer {
 		PassengerGroupModel nextPassengerGroup = passengerGroups.getNextPassengerGroup();
 		
 		if((nextTaxi != null) && (nextPassengerGroup != null)) {
-			logText += "Assigned " + nextTaxi.toString() + " to " + nextPassengerGroup.toString();
+			logText += "Assigned " + nextTaxi.toString() + " to " + nextPassengerGroup.toString() +  " (" + Thread.currentThread().getName() +")" +"\n";
 			
 			removeTaxi(nextTaxi);
 			removePassengerGroup(nextPassengerGroup);
+			
+			Utils.println(logText);
 			
 			LogFileOps.getInstance().appendTextToWrite(logText);
 			LogFileOps.getInstance().invokeWriteToFile();
@@ -95,11 +141,11 @@ public class SimulationController extends Subject implements Observer {
 	private void recordSimulation() {
 		String simText = "";
 		
-		simText += "Passenger Groups " + "(" + model.getPassengerGroups().availablePassengerGroupCount() + ")" + ":\n";
-		simText += model.getPassengerGroups().toString() + "\n\n";
+		simText += "Passenger Groups " + "(" + passengerGroups.availablePassengerGroupCount() + ")" + ":\n";
+		simText += passengerGroups.toString() + "\n\n";
 		
-		simText += "Taxis " + "(" + model.getTaxis().availableTaxiCount() + ")" + ":\n";
-		simText += model.getTaxis().toString() + "\n\n";
+		simText += "Taxis " + "(" + taxis.availableTaxiCount() + ")" + ":\n";
+		simText += taxis.toString() + "\n\n";
 		
 		SimulationFileOps.getInstance().appendTextToWrite(simText);
 		SimulationFileOps.getInstance().invokeWriteToFile();
@@ -112,6 +158,7 @@ public class SimulationController extends Subject implements Observer {
 	 */
 	public void removePassengerGroup(PassengerGroupModel passengerGroup) {
 		model.getPassengerGroups().removePassengerGroup(passengerGroup);
+		model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this controller is the observer of MasterModel]
 	}
 	
 	/**
@@ -121,18 +168,17 @@ public class SimulationController extends Subject implements Observer {
 	 */
 	public void removeTaxi(TaxiModel taxi) {
 		model.getTaxis().removeTaxi(taxi);
+		model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this controller is the observer of MasterModel]
 	}
 
 	@Override
 	public void update() {
-		String simText = "";
-		
-		simText += "Passenger Groups " + "(" + model.getPassengerGroups().availablePassengerGroupCount() + ")" + ":\n";
-		simText += model.getPassengerGroups().toString() + "\n\n";
-		
-		simText += "Taxis " + "(" + model.getTaxis().availableTaxiCount() + ")" + ":\n";
-		simText += model.getTaxis().toString() + "\n\n";
-		
-		view.setSimulationText(simText);
+		getPassengerGroups();
+		getTaxis();
+	}
+
+	@Override
+	public void run() {
+		start();
 	}
 }
