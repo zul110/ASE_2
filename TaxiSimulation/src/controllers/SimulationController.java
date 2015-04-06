@@ -8,18 +8,20 @@ package controllers;
 import helpers.Utils;
 
 import java.util.ListIterator;
+import java.util.Random;
 
 import observerInterfaces.Observer;
 import observerInterfaces.Subject;
 import fileOperations.LogFileOps;
 import fileOperations.SimulationFileOps;
 import views.MainView;
+import views.SimulationView;
 import models.*;
 
 public class SimulationController extends Subject implements Observer, Runnable 
 {
 	private MasterModel model;
-	private MainView view;
+	private SimulationView view;
 	
 	private PassengerGroupListModel passengerGroups;
 	private TaxisListModel taxis;
@@ -30,10 +32,12 @@ public class SimulationController extends Subject implements Observer, Runnable
 	private Thread t2;
 	private Thread t3;
 	
+	private long speed = 1000;
+	
 	/**
 	 * Constructor of the Simulation controller
 	 */
-	public SimulationController(MasterModel model, MainView view) 
+	public SimulationController(MasterModel model, SimulationView view) 
 	{
 		this.model = model;
 		this.view = view;
@@ -48,7 +52,7 @@ public class SimulationController extends Subject implements Observer, Runnable
 	public void initSimulation() 
 	{
 		model.notifyObservers();
-		setSimulationText(); // set the initial simulation text (the data in the lists as they are without modification)
+		//setSimulationText(); // set the initial simulation text (the data in the lists as they are without modification)
 		initThreads(); // Call Initialize threads
 	}
 	
@@ -59,30 +63,15 @@ public class SimulationController extends Subject implements Observer, Runnable
 	{
 		t1 = new Thread(this);
 		t1.setName("t1");
+		
 		t2 = new Thread(this);
 		t2.setName("t2");
+		
 		t3 = new Thread(this);
 		t3.setName("t3");
+		
 		t1.start();
-		try 
-		{
-			Thread.sleep(10);
-		} 
-		catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		t2.start();
-		try 
-		{
-			Thread.sleep(10);
-		} 
-		catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		t3.start();
 	}
 	
@@ -91,38 +80,31 @@ public class SimulationController extends Subject implements Observer, Runnable
 		ListIterator<PassengerGroupModel> iterator = passengerGroups.getPassengerGroups().listIterator();
 		
 		while(iterator.hasNext()) {
-			//recordSimulation();
-			this.notifyObservers();  // update the view [Here view is the observer of this simulation controller]
-			if(!assignPassengerGroupToTaxi()) 
-			{
-				setSimulationText();
+			if(!assignPassengerGroupToTaxi()) {
 				break;
 			}
-			setSimulationText();
 			
-			try 
-			{
-				Thread.sleep(1000);
-			} 
-			catch (InterruptedException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			speed = randInt(500, 1500);
+			
+			view.setTaxis(taxis);
+			view.setPassengerGroups(passengerGroups);
+			view.setThread(Thread.currentThread().getName());
+			
+			this.notifyObservers();  // update the view [Here view is the observer of this simulation controller]
 		}
 	}
+	
+	public static int randInt(int min, int max) {
+	    Random rand = new Random();
 
-	private void setSimulationText() 
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
+
+	private void setSimulationText(String s) 
 	{
-		String simText = "";
-		
-		simText += "Thread:" + Thread.currentThread().getName() + "\n";
-		
-		simText += "Passenger Groups: " + "(" + passengerGroups.availablePassengerGroupCount() + ")" + ":\n";
-		simText += passengerGroups.toString() + "\n\n";
-		
-		simText += "Taxis: " + "(" + taxis.availableTaxiCount() + ")" + ":\n";
-		simText += taxis.toString() + "\n";
+		String simText = s;
 		
 		view.setSimulationText(simText);
 	}
@@ -151,30 +133,46 @@ public class SimulationController extends Subject implements Observer, Runnable
 	 * @parameter taxi
 	 * @return Returns true if successfully assigns a group to a taxi (depends on a given condition), false if fails
 	 */
-	public boolean assignPassengerGroupToTaxi() 
+	public synchronized boolean assignPassengerGroupToTaxi() 
 	{
 		String logText = "";
-		
+		try 
+		{
+			Thread.sleep(speed);
+		} 
+		catch (InterruptedException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		TaxiModel nextTaxi = taxis.getNextAvailableTaxi();
 		PassengerGroupModel nextPassengerGroup = passengerGroups.getNextPassengerGroup();
 		
 		if((nextTaxi != null) && (nextPassengerGroup != null)) 
 		{
-			logText += "Assigned " + nextTaxi.toString() + " to " + nextPassengerGroup.toString() +  " (" + Thread.currentThread().getName() +")" +"\n";
+			logText += "Taxi: " + nextTaxi.toString() + "\n";
+			logText += "Destination: " + nextPassengerGroup.getDestination() + "\n";
+			logText += "Number of passengers: " + nextPassengerGroup.getNumberOfPassengers() + "\n\n";
 			
 			removeTaxi(nextTaxi);
 			removePassengerGroup(nextPassengerGroup);
 			
-			Utils.println(logText);
+			setSimulationText(logText);
 			
-			LogFileOps.getInstance().appendTextToWrite(logText);
-			LogFileOps.getInstance().invokeWriteToFile();
+			String window = Thread.currentThread().getName().replace("t", "Window ");
+			logText = "Assigned " + nextTaxi.toString() + " to " + nextPassengerGroup.toString() +  " (" + window +")";	
+			LogAssignment(logText);
 			
 			return true;
 		}
 		
 		return false;
 	}
+	private void LogAssignment(String logText) {
+		LogFileOps.getInstance().appendTextToWrite(logText);
+		LogFileOps.getInstance().invokeWriteToFile();
+	}
+
 	/**
 	 * Record Simulation -Passenger group count and Taxi count
 	 */
