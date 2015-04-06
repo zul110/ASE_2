@@ -28,7 +28,7 @@ public class DisplayWindow extends JFrame implements ActionListener
 	
 	public DisplayWindow()
 	{
-		// Sets the background for the Window
+		//Sets the background for the Window
 		getContentPane().setBackground(new Color(128,0,0)); 
 		overallPanel = new JPanel();
 		passengerPanel =  new JPanel();
@@ -38,15 +38,15 @@ public class DisplayWindow extends JFrame implements ActionListener
 		thirdWindow = new JPanel();
 		displayPanel = new JPanel();
 		
-		 // Sets the same background for the button panel
+		//Sets the same background for the button panel
 		overallPanel.setBackground(new Color(128,0,0));
 		
-		passengerText = new JTextArea(25,10);
-		taxiText = new JTextArea(25,10);
-		firstWindowText = new JTextArea(45,10);
-		secondWindowText = new JTextArea(45,10);
-		thirdWindowText = new JTextArea(45,10);
-		displayText = new JTextArea(45,10);
+		passengerText = new JTextArea(45,20);
+		taxiText = new JTextArea(45,20);
+		firstWindowText = new JTextArea(45,20);
+		secondWindowText = new JTextArea(45,20);
+		thirdWindowText = new JTextArea(45,20);
+		displayText = new JTextArea(45,20);
 		
 		passengerScroll = new JScrollPane(passengerText);
 		taxiScroll = new JScrollPane(taxiText);
@@ -69,8 +69,6 @@ public class DisplayWindow extends JFrame implements ActionListener
 		thirdWindow.add(thirdWindowScroll);
 		displayPanel.add(displayScroll);
 		
-		// Making the button panel as a box layout so that the displayPanel come one below the other
-		//use grid layout
 		overallPanel.setLayout(new GridLayout(5, 1));
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.PAGE_AXIS));
 		passengerPanel.setLayout(new BoxLayout(passengerPanel, BoxLayout.PAGE_AXIS));
@@ -80,11 +78,12 @@ public class DisplayWindow extends JFrame implements ActionListener
 		
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		getContentPane().setLayout(new FlowLayout());
+		
 		//Declared so that on closing of window the other GUI'sdo not get closed
 	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Simulation Window");
 		
-		// Creates a rigid area below the sort displayPanel for formatting reasons
+		
 		//Component rigidArea = Box.createRigidArea(new Dimension(0, 158));
 		//rigidArea.setBackground(new Color(221, 160, 221));
 		//displayPanel.add(rigidArea);

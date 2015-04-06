@@ -4,7 +4,7 @@ Assigned SWISS-GE-245670 to 5 passenger(s), going to Zuerich,Wollishofen (t2)
 
 Assigned SWISS-GE-274788 to 3 passenger(s), going to Zuerich,Wallisellen (t3)
 
-Assigned SWISS-GE-252385 to 2 passenger(s), going to Geneva,LeJetdEau (t1)
+Assigned SWISS-GE-252385 to 2 passenger(s), going to Geneva,LeJetdEau (t3)
 
-Assigned SWISS-GE-212345 to 4 passenger(s), going to Zuerich,Mattenbach (t3)
+Assigned SWISS-GE-212345 to 4 passenger(s), going to Zuerich,Mattenbach (t1)
 
