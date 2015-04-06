@@ -41,8 +41,8 @@ public class DisplayWindow extends JFrame implements ActionListener
 		 // Sets the same background for the button panel
 		overallPanel.setBackground(new Color(128,0,0));
 		
-		passengerText = new JTextArea(45,10);
-		taxiText = new JTextArea(45,10);
+		passengerText = new JTextArea(25,10);
+		taxiText = new JTextArea(25,10);
 		firstWindowText = new JTextArea(45,10);
 		secondWindowText = new JTextArea(45,10);
 		thirdWindowText = new JTextArea(45,10);
@@ -110,16 +110,6 @@ public class DisplayWindow extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		/*
-		// Different results are displayed in the right pane for different displayPanel pressed
-		if(e.getSource() == ButtonNo)
-			taxiText.setText(here.SortByNumber());
-		if(e.getSource() == ButtonName)
-			taxiText.setText(here.SortByName());
-		if(e.getSource() == ButtonAge)
-			taxiText.setText(here.SortByAge());
-		if(e.getSource() == Close)
-			super.dispose();
-		*/
+		
 	}
 }
