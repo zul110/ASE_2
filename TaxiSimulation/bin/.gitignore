@@ -4,3 +4,5 @@
 /data/
 /customExceptions/
 /controllers/
+/models/
+/observerInterfaces/
