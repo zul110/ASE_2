@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +19,7 @@ import javax.swing.JTextArea;
 public class DisplayWindow extends JFrame implements ActionListener
 {
 
-	JPanel overallPanel, passengerPanel,taxiPanel, displayPanel, firstWindow, secondWindow, thirdWindow;
+	JPanel passengerPanel,taxiPanel, displayPanel, firstWindow, secondWindow, thirdWindow;
 
 	JTextArea passengerText,taxiText, firstWindowText, secondWindowText, thirdWindowText, displayText;
 
@@ -30,23 +29,20 @@ public class DisplayWindow extends JFrame implements ActionListener
 	{
 		//Sets the background for the Window
 		getContentPane().setBackground(new Color(128,0,0)); 
-		overallPanel = new JPanel();
+		
 		passengerPanel =  new JPanel();
 		taxiPanel = new JPanel();
 		firstWindow = new JPanel();
 		secondWindow = new JPanel();
 		thirdWindow = new JPanel();
-		displayPanel = new JPanel();
+		displayPanel = new JPanel(); //shows which passenger group got allocated to which taxi
 		
-		//Sets the same background for the button panel
-		overallPanel.setBackground(new Color(128,0,0));
-		
-		passengerText = new JTextArea(45,20);
-		taxiText = new JTextArea(45,20);
-		firstWindowText = new JTextArea(45,20);
-		secondWindowText = new JTextArea(45,20);
-		thirdWindowText = new JTextArea(45,20);
-		displayText = new JTextArea(45,20);
+		passengerText = new JTextArea(10,15);
+		taxiText = new JTextArea(10,15);
+		firstWindowText = new JTextArea(10,15);
+		secondWindowText = new JTextArea(10,15);
+		thirdWindowText = new JTextArea(10,15);
+		displayText = new JTextArea(10,15);
 		
 		passengerScroll = new JScrollPane(passengerText);
 		taxiScroll = new JScrollPane(taxiText);
@@ -69,15 +65,15 @@ public class DisplayWindow extends JFrame implements ActionListener
 		thirdWindow.add(thirdWindowScroll);
 		displayPanel.add(displayScroll);
 		
-		overallPanel.setLayout(new GridLayout(5, 1));
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.PAGE_AXIS));
 		passengerPanel.setLayout(new BoxLayout(passengerPanel, BoxLayout.PAGE_AXIS));
+		taxiPanel.setLayout(new BoxLayout(taxiPanel, BoxLayout.PAGE_AXIS));
 		firstWindow.setLayout(new BoxLayout(firstWindow, BoxLayout.PAGE_AXIS));
 		secondWindow.setLayout(new BoxLayout(secondWindow, BoxLayout.PAGE_AXIS));
 		thirdWindow.setLayout(new BoxLayout(thirdWindow, BoxLayout.PAGE_AXIS));
 		
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		getContentPane().setLayout(new FlowLayout());
+		getContentPane().setLayout(new GridLayout(3,2,5,10));
 		
 		//Declared so that on closing of window the other GUI'sdo not get closed
 	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -95,7 +91,7 @@ public class DisplayWindow extends JFrame implements ActionListener
 		secondWindowText.setEditable(true);
 		thirdWindowText.setEditable(true);
 		
-		getContentPane().add(overallPanel);
+
 		getContentPane().add(passengerPanel);
 		getContentPane().add(displayPanel);
 		getContentPane().add(taxiPanel);
