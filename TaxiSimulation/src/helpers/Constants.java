@@ -1,3 +1,8 @@
+/**
+ * Advanced Software Engineering - Stage 2 of Taxi Simulation
+ * @author Sreesha Damodaran, Vidhya Krishna, Zulqarnain Mehdi
+ * This class describe methods for helpers
+ */
 package helpers;
 
 public class Constants {

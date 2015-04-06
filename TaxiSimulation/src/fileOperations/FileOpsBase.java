@@ -1,7 +1,7 @@
 /**
- * Advanced Software Engineering - Stage 1 of Taxi Service Application 
+ * Advanced Software Engineering - Stage 2 of Taxi Simulation
  * @author Sreesha Damodaran, Vidhya Krishna, Zulqarnain Mehdi
- * This class describe methods for FileOps
+ * This class describe methods for FileOpsBase
  */
 package fileOperations;
 
