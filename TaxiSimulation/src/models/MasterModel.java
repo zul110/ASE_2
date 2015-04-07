@@ -8,7 +8,10 @@ public class MasterModel extends Subject {
 	private TaxisListModel taxis;
 	private PassengerGroupListModel passengerGroupList;
 	
-	public MasterModel() {
+	public MasterModel(int taxiLimit, int passengerGroupLimit) {
+		TaxiData.getInstance().setTaxiLimit(taxiLimit);
+		PassengerGroupData.getInstance().setPassengerGroupLimit(passengerGroupLimit);
+		
 		taxis = new TaxisListModel();
 		taxis.setTaxis(TaxiData.getInstance().getTaxiData());
 		
