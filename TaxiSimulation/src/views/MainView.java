@@ -106,7 +106,7 @@ public class MainView extends JFrame implements ActionListener {
 		int taxiLimit = 10;
 		int passengerGroupLimit = 10;
 		
-		/** System process  invalid inputs and display 5 passenger groups and  10 taxi groups **/
+		/** System process  invalid inputs and display 5 passenger groups and  5 taxi groups **/
 		if(Utils.isInteger(taxisField.getText()) && Utils.isInteger(passengerGroupsField.getText())) {
 			taxiLimit = Integer.parseInt(taxisField.getText());
 			passengerGroupLimit = Integer.parseInt(passengerGroupsField.getText());
