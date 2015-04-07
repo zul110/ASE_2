@@ -1,6 +1,9 @@
 /data/
 /.gitignore
+/controllers/
+/customExceptions/
 /fileOperations/
 /helpers/
-/controllers/
+/models/
+/observerInterfaces/
 /views/
