@@ -1,2 +1,6 @@
 /data/
 /.gitignore
+/fileOperations/
+/helpers/
+/controllers/
+/views/
