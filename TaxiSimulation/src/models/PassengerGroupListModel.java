@@ -1,51 +1,61 @@
 package models;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class PassengerGroupListModel {
-	private List<PassengerGroupModel> passengerGroups;
+	private ListIterator<PassengerGroupModel> passengerGroups;
 	
-	public List<PassengerGroupModel> getPassengerGroups() {
+	public ListIterator<PassengerGroupModel> getPassengerGroups() {
 		return passengerGroups;
 	}
 	
 	public void setPassengerGroups(List<PassengerGroupModel> passengerGroups) {
-		this.passengerGroups = passengerGroups;
+		this.passengerGroups = passengerGroups.listIterator();
 	}
 	
 	/**
 	 * Gets the next available passenger group (index 0) in the collection
 	 * @return Returns the first PassengerGroup if a group is available, null if the collection is empty
 	 */
-	public PassengerGroupModel getNextPassengerGroup() {
-		if(!passengerGroups.isEmpty()) {
-			return passengerGroups.get(0);
+	public  PassengerGroupModel getNextPassengerGroup() {
+		if(passengerGroups.hasNext()) {
+			PassengerGroupModel passengerGroup = passengerGroups.next();
+			passengerGroups.remove();
+			return passengerGroup;
 		}
 		
 		return null;
 	}
 	
-	public void removePassengerGroup(PassengerGroupModel passengerGroup) {
-		if(passengerGroups.contains(passengerGroup)) {
-			passengerGroups.remove(passengerGroup);
-		}
-	}
-	
-	public int availablePassengerGroupCount() {
-		if(!passengerGroups.isEmpty()) {
-			return passengerGroups.size();
+	public  int availablePassengerGroupCount() {
+		int count = 0;
+		while(passengerGroups.hasNext()) {
+			count++;
+			
+			passengerGroups.next();
 		}
 		
-		return 0;
+		resetCursor();
+		
+		return count;
 	}
 	
+	private void resetCursor() {
+		while(passengerGroups.hasPrevious()) {
+			passengerGroups.previous();
+		}
+	}
+
 	@Override
 	public String toString() {
 		String s = "";
 		
-		for(PassengerGroupModel passengerGroup : passengerGroups) {
-			s += passengerGroup.toString() + "\n";
+		while(passengerGroups.hasNext()) {
+			s += passengerGroups.next().toString() + "\n";
 		}
+		
+		resetCursor();
 		
 		return s;
 	}
@@ -53,9 +63,11 @@ public class PassengerGroupListModel {
 	public String displayPassengerGroupListInfo() {
 		String s = "";
 		
-		for(PassengerGroupModel passengerGroup : this.getPassengerGroups()) {
-			s += passengerGroup.displayPassengerGroupInfo();
+		while(passengerGroups.hasNext()) {
+			s += passengerGroups.next().toString();
 		}
+		
+		resetCursor();
 		
 		return s;
 	}

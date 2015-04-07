@@ -213,9 +213,12 @@ public class SimulationView extends JFrame implements Observer {
 				options[0]);
 		
 		if(option == 0) {
+			if(mainView != null) {
+				mainView.setEnabled(true);
+			} else {
+				MainView newMainView = new MainView();
+			}
 			dispose();
-			
-			mainView.setEnabled(true);
 		} else {
 			System.exit(0);
 		}

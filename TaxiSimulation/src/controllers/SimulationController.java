@@ -32,7 +32,9 @@ public class SimulationController extends Subject implements Observer, Runnable
 	private Thread t2;
 	private Thread t3;
 	
-	private long speed = 1000;
+	private int minSpeed = 200;
+	private int maxSpeed = 800;
+	private int speed = minSpeed;
 	
 	/**
 	 * Constructor of the Simulation controller
@@ -71,35 +73,10 @@ public class SimulationController extends Subject implements Observer, Runnable
 		t3.setName("t3");
 		
 		t1.start();
-		t2.start();
-		t3.start();
-	}
-	
-	private void start() 
-	{
-		ListIterator<PassengerGroupModel> iterator = passengerGroups.getPassengerGroups().listIterator();
 		
-		while(iterator.hasNext()) {
-			if(!assignPassengerGroupToTaxi()) {
-				break;
-			}
-			
-			speed = randInt(500, 1500);
-			
-			view.setTaxis(taxis);
-			view.setPassengerGroups(passengerGroups);
-			view.setThread(Thread.currentThread().getName());
-			
-			this.notifyObservers();  // update the view [Here view is the observer of this simulation controller]
-		}
-	}
-	
-	public static int randInt(int min, int max) {
-	    Random rand = new Random();
-
-	    int randomNum = rand.nextInt((max - min) + 1) + min;
-
-	    return randomNum;
+		t2.start();
+		
+		t3.start();
 	}
 
 	private void setSimulationText(String s) 
@@ -133,41 +110,46 @@ public class SimulationController extends Subject implements Observer, Runnable
 	 * @parameter taxi
 	 * @return Returns true if successfully assigns a group to a taxi (depends on a given condition), false if fails
 	 */
-	public synchronized boolean assignPassengerGroupToTaxi() 
+	public synchronized void assignPassengerGroupToTaxi() 
 	{
-		String logText = "";
-		try 
-		{
-			Thread.sleep(speed);
-		} 
-		catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		TaxiModel nextTaxi = taxis.getNextAvailableTaxi();
-		PassengerGroupModel nextPassengerGroup = passengerGroups.getNextPassengerGroup();
-		
-		if((nextTaxi != null) && (nextPassengerGroup != null)) 
-		{
+		try {
+			String logText = "";
+			
+			TaxiModel nextTaxi;
+			PassengerGroupModel nextPassengerGroup;
+			
+			nextTaxi = taxis.getNextAvailableTaxi();
+			nextPassengerGroup = passengerGroups.getNextPassengerGroup();
+			
 			logText += "Taxi: " + nextTaxi.toString() + "\n";
 			logText += "Destination: " + nextPassengerGroup.getDestination() + "\n";
 			logText += "Number of passengers: " + nextPassengerGroup.getNumberOfPassengers() + "\n\n";
-			
-			removeTaxi(nextTaxi);
-			removePassengerGroup(nextPassengerGroup);
 			
 			setSimulationText(logText);
 			
 			String window = Thread.currentThread().getName().replace("t", "Window ");
 			logText = "Assigned " + nextTaxi.toString() + " to " + nextPassengerGroup.toString() +  " (" + window +")";	
 			LogAssignment(logText);
+	
+			speed = randInt(minSpeed, maxSpeed);
 			
-			return true;
+			view.setTaxis(taxis);
+			view.setPassengerGroups(passengerGroups);
+			view.setThread(Thread.currentThread().getName());
+			
+			this.notifyObservers();  // update the view [Here view is the observer of this simulation controller]
+		} catch(Exception ex) {
+			// do nothing
 		}
-		
-		return false;
 	}
+	
+	public static int randInt(int min, int max) {
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
+	
 	private void LogAssignment(String logText) {
 		LogFileOps.getInstance().appendTextToWrite(logText);
 		LogFileOps.getInstance().invokeWriteToFile();
@@ -197,8 +179,12 @@ public class SimulationController extends Subject implements Observer, Runnable
 	 */
 	public void removePassengerGroup(PassengerGroupModel passengerGroup) 
 	{
-		model.getPassengerGroups().removePassengerGroup(passengerGroup);
-		model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this controller is the observer of MasterModel]
+		if(passengerGroups.getPassengerGroups().hasNext()) {
+			passengerGroups.getNextPassengerGroup();
+			
+			model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this controller is the observer of MasterModel]
+		}
+//		model.getPassengerGroups().removePassengerGroup(passengerGroup);
 	}
 	
 	/**
@@ -208,8 +194,11 @@ public class SimulationController extends Subject implements Observer, Runnable
 	 */
 	public void removeTaxi(TaxiModel taxi) 
 	{
-		model.getTaxis().removeTaxi(taxi);
-		model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this simulation controller is the observer of MasterModel]
+		if(taxis.getTaxis().hasNext()) {
+			taxis.getNextAvailableTaxi();
+			
+			model.notifyObservers(); // notify the observers that one of the lists has been changed - updates both lists [this simulation controller is the observer of MasterModel]
+		}
 	}
 
 	@Override
@@ -220,6 +209,15 @@ public class SimulationController extends Subject implements Observer, Runnable
 
 	@Override
 	public void run() {
-		start();
+		while(passengerGroups.getPassengerGroups().hasNext()) {
+			assignPassengerGroupToTaxi();
+			
+			try {
+				Thread.sleep(speed);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
