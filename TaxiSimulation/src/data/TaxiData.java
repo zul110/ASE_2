@@ -54,6 +54,31 @@ public class TaxiData {
 		taxis.add(new TaxiModel("SWISS-GE-274788"));
 		taxis.add(new TaxiModel("SWISS-GE-212345"));
 		taxis.add(new TaxiModel("SWISS-GE-252385"));
+		taxis.add(new TaxiModel("SWISS-GE-237890"));
+		taxis.add(new TaxiModel("SWISS-GE-245670"));
+		taxis.add(new TaxiModel("SWISS-GE-274788"));
+		taxis.add(new TaxiModel("SWISS-GE-212345"));
+		taxis.add(new TaxiModel("SWISS-GE-252385"));
+		taxis.add(new TaxiModel("SWISS-GE-237890"));
+		taxis.add(new TaxiModel("SWISS-GE-245670"));
+		taxis.add(new TaxiModel("SWISS-GE-274788"));
+		taxis.add(new TaxiModel("SWISS-GE-212345"));
+		taxis.add(new TaxiModel("SWISS-GE-252385"));
+		taxis.add(new TaxiModel("SWISS-GE-237890"));
+		taxis.add(new TaxiModel("SWISS-GE-245670"));
+		taxis.add(new TaxiModel("SWISS-GE-274788"));
+		taxis.add(new TaxiModel("SWISS-GE-212345"));
+		taxis.add(new TaxiModel("SWISS-GE-252385"));
+		taxis.add(new TaxiModel("SWISS-GE-237890"));
+		taxis.add(new TaxiModel("SWISS-GE-245670"));
+		taxis.add(new TaxiModel("SWISS-GE-274788"));
+		taxis.add(new TaxiModel("SWISS-GE-212345"));
+		taxis.add(new TaxiModel("SWISS-GE-252385"));
+		taxis.add(new TaxiModel("SWISS-GE-237890"));
+		taxis.add(new TaxiModel("SWISS-GE-245670"));
+		taxis.add(new TaxiModel("SWISS-GE-274788"));
+		taxis.add(new TaxiModel("SWISS-GE-212345"));
+		taxis.add(new TaxiModel("SWISS-GE-252385"));
 		
 		if(taxiLimit > taxis.size() || taxiLimit < 1) {
 			taxiLimit = taxis.size();

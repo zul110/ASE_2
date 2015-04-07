@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -102,11 +103,33 @@ public class MainView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		int taxiLimit = Utils.isInteger(taxisField.getText()) ? Integer.parseInt(taxisField.getText()) : 5;
-		int passengerGroupLimit = Utils.isInteger(passengerGroupsField.getText()) ? Integer.parseInt(passengerGroupsField.getText()) : 5;
+		int taxiLimit = 10;
+		int passengerGroupLimit = 10;
 		
-		this.setEnabled(false);
-		
-		SimulationView simView = new SimulationView(taxiLimit, passengerGroupLimit, this);
+		/** System process  invalid inputs and display 5 passenger groups and  10 taxi groups **/
+		if(Utils.isInteger(taxisField.getText()) && Utils.isInteger(passengerGroupsField.getText())) {
+			taxiLimit = Integer.parseInt(taxisField.getText());
+			passengerGroupLimit = Integer.parseInt(passengerGroupsField.getText());
+			
+			/** System limits taxi groups and passenger groups**/
+			if (taxiLimit>45 || passengerGroupLimit>45)
+			{
+				JOptionPane.showMessageDialog(this,
+					    "The maximum number of taxis and passenger groups that can be added to the simulation is 45.",
+					    "Information",
+					    JOptionPane.WARNING_MESSAGE);
+			}
+			else
+			{
+				this.setEnabled(false);
+				SimulationView simView = new SimulationView(taxiLimit, passengerGroupLimit, this);
+			}
+			
+		} else {
+			JOptionPane.showMessageDialog(this,
+				    "Invalid input detected. Please insert numeric values (between 1 and 45) for the fields.",
+				    "Information",
+				    JOptionPane.WARNING_MESSAGE);
+		}
 	}
 }

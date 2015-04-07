@@ -32,6 +32,16 @@ public class PassengerGroupData {
 			passengerGroups.clear();
 		}
 		
+		passengerGroups.add(new PassengerGroupModel(2, "Geneva,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(5, "Genevaaaa,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(5, "Genevabbb,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(5, "Zuerich,Kreis 11"));
+		passengerGroups.add(new PassengerGroupModel(4, "Zuerich,Wollishofen"));
+		passengerGroups.add(new PassengerGroupModel(2, "Zuerich,Wallisellen"));
+		passengerGroups.add(new PassengerGroupModel(1, "Zuerich,Mattenbach"));
+		passengerGroups.add(new PassengerGroupModel(3, "Geneva,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(4, "Genevaaaa,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(1, "Genevabbb,LeJetdEau"));
 		passengerGroups.add(new PassengerGroupModel(1, "Zuerich,Kreis 11"));
 		passengerGroups.add(new PassengerGroupModel(5, "Zuerich,Wollishofen"));
 		passengerGroups.add(new PassengerGroupModel(3, "Zuerich,Wallisellen"));
@@ -60,6 +70,13 @@ public class PassengerGroupData {
 		passengerGroups.add(new PassengerGroupModel(2, "Geneva,LeJetdEau"));
 		passengerGroups.add(new PassengerGroupModel(3, "Genevaaaa,LeJetdEau"));
 		passengerGroups.add(new PassengerGroupModel(5, "Genevabbb,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(4, "Zuerich,Mattenbach"));
+		passengerGroups.add(new PassengerGroupModel(2, "Geneva,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(3, "Genevaaaa,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(5, "Genevabbb,LeJetdEau"));
+		passengerGroups.add(new PassengerGroupModel(1, "Zuerich,Kreis 11"));
+		passengerGroups.add(new PassengerGroupModel(5, "Zuerich,Wollishofen"));
+		passengerGroups.add(new PassengerGroupModel(3, "Zuerich,Wallisellen"));
 		
 		if(passengerGroupLimit > passengerGroups.size() || passengerGroupLimit < 1) {
 			passengerGroupLimit = passengerGroups.size();
