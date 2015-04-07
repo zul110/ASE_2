@@ -1,9 +1,2 @@
-/fileOperations/
-/views/
-/helpers/
 /data/
-/customExceptions/
-/controllers/
-/models/
-/observerInterfaces/
-/guiScreen/
+/.gitignore
